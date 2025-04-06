@@ -1,0 +1,41 @@
+<div class="inner-content">
+  <section class="ic-header">
+    <ion-buttons (click)="dismiss()" slot="start">
+      <ion-icon name="close" class="fs-26"></ion-icon>
+    </ion-buttons>
+  </section>
+  <section class="ic-body">
+    <div *ngIf="src.constructor.name === 'Array'" class="icb-content">
+      <swiper-container #swiper
+        (afterinit)="swiperReady(swiper)"
+        [zoom]="true"
+        zoom-min-ratio="1"
+        zoom-max-ratio="3"
+        [options]="swiperOptions"
+        [pagination]="true">
+        <swiper-slide *ngFor="let item of src">
+          <div *ngIf="!item.img" class="swiper-zoom-container">
+            <img [src]="item"/>
+          </div>
+          <div *ngIf="item.img" class="swiper-zoom-container">
+            <img [src]="item.img"/>
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+    <div *ngIf="src.constructor.name !== 'Array'" class="icb-content">
+      <swiper-container #swiper
+        (afterinit)="swiperReady(swiper)"
+        [zoom]="true"
+        zoom-min-ratio="1"
+        zoom-max-ratio="3"
+        [options]="swiperOptions">
+        <swiper-slide>
+          <div *ngIf="fileType === 'image'" class="swiper-zoom-container">
+            <img [src]="src"/>
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </section>
+</div>

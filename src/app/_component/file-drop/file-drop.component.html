@@ -1,0 +1,7 @@
+<div class="upload-input cursor-p" [ngClass]="{'dragged': isDragging}" (drop)="onDropFile($event)" (click)="chooseFile()" (dragenter)="dragEnter($event)" (dragleave)="dragLeave($event)" (dragover)="allowDrop($event)">
+  <div class="text-center">
+    <ion-icon name="cloud-upload" class="fs-46 txt-color-Darkergrey"></ion-icon>
+    <div class="fs-12 txt-color--00">{{ 'TITLE_DRAG_DROP' | translate }}</div>
+    <div class="fs-12 txt-color--350">{{ 'SUBTITLE_DRAG_DROP' | translate }}</div>
+  </div>
+</div>

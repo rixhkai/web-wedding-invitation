@@ -1,0 +1,21 @@
+.upload-input{
+  min-height: 120px;
+  background: #F9FAFA;
+  border: 1px dashed #CCCCCC;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.upload-input:hover {
+  border: 1px dashed var(--ion-color-primary);
+}
+
+.upload-input.dragged {
+  border: 1px dashed var(--ion-color-primary);
+  background: rgba(var(--ion-color-primary-rgb)), 0.8;
+}
+
+.text-center {
+  pointer-events: none;
+}
