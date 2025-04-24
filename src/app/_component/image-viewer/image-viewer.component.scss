@@ -30,6 +30,7 @@
   align-items: center;
   width: 100%;
   height: calc(100%);
+  position: relative;
 }
 
 .ic-body image-cropper {
@@ -87,4 +88,8 @@ swiper-slide img {
     opacity: 0.3;
     z-index: 10;
   }
+}
+
+swiper-slide {
+  height: 80vh;
 }

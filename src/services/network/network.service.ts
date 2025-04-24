@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular/standalone';
 import { Network } from '@capacitor/network';
 import { PluginListenerHandle } from '@capacitor/core';
 import { EventsService } from '../events/events.service';

@@ -8,6 +8,7 @@ import { NetworkService } from '../network/network.service';
 import { finalize } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { DateTime } from 'luxon';
 
 @Injectable({
   providedIn: 'root'
@@ -256,5 +257,29 @@ export class UtilityService {
     } else {
       return message;
     }
+  }
+
+  backFormatDate(date: string | number | Date, format = 'yyyy-MM-dd', formatSource?: string, locale?: string): string{
+    // date iso string if format source not given
+    // date string if format source is custom
+    if (formatSource && typeof date == 'string') {
+      if (locale) {
+        return DateTime.fromFormat(date, formatSource).setLocale(locale).toFormat(format);
+      }
+      return DateTime.fromFormat(date, formatSource).toFormat(format);
+    }
+    if (locale && typeof date == 'string') {
+      return DateTime.fromISO(date).setLocale(locale).toFormat(format);
+    } else if (locale && typeof date == 'number') {
+      return DateTime.fromMillis(date).setLocale(locale).toFormat(format);
+    }
+
+    if (date instanceof Date) {
+      if (locale) {
+        return DateTime.fromJSDate(date).setLocale(locale).toFormat(format);
+      }
+      return DateTime.fromJSDate(date).toFormat(format);
+    }
+    return typeof date == 'string' ? DateTime.fromISO(date).toFormat(format) : DateTime.fromMillis(date).toFormat(format);
   }
 }

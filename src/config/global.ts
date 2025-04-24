@@ -11,6 +11,9 @@ let global ={
   debugMode: false,
   source: [],
   endpoint_url: 'https://api-wedding-invitation.rijlab.com/api/',
+  cdnPath: 'https://cdn.rijlab.com',
+  localImgPath: 'assets/img',
+  endpointWeb: 'https://wedding-invitation.rijlab.com',
 
   currentUrl: '',
 }

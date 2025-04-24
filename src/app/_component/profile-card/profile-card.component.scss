@@ -1,0 +1,168 @@
+// couple wrap
+.couple-wrap {
+  position: relative;
+  overflow: hidden;
+  .couple {
+    padding: 40px 0;
+  }
+
+  .couple-head {
+    text-align: center;
+    padding: 20px;
+  }
+  
+}
+
+body:not(.custom-fonts) .couple-head .couple-title {
+  // font-family: var(--creattion-demo);
+  font-family: var(--font-regular);
+}
+
+.couple-head .couple-description {
+  font-family: var(--visiapro-light);
+  font-style: italic;
+}
+
+.couple-head .couple-title {
+  font-family: var(--heading-family);
+  font-size: calc(var(--heading-size) + 20px);
+  margin-bottom: 0.15em;
+  line-height: 1;
+}
+
+.couple-wrap {
+  padding: 50px 0px;
+
+  ion-card {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    // border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+    // background: var(--color-gradasi, linear-gradient(67deg, var(--background-primary) 0%, var(--background-secondary) 49.84%, var(--background-tertiary) 130.59%));
+
+    ion-button {
+      --padding-end: 10px;
+      --padding-start: 10px;
+      --border-radius: 8px;
+      --border-width: 1px;
+      font-family: var(--visiapro-semibold);
+      text-transform: unset;
+      font-size: 10px;
+    }
+  }
+
+  ion-card:first-child {
+    padding-right: 0px;
+
+    .img-wrap {
+      margin-right: 0px;
+      // padding-left: 10px;
+    }
+  } 
+
+  ion-card:last-child {
+    // background: var(--color-gradasi, linear-gradient(306deg, var(--background-primary) 0%, var(--background-secondary) 49.84%, var(--background-tertiary) 130.59%));
+    padding-left: 0px;
+
+    .img-wrap {
+      margin-left: 0px;
+      // padding-right: 10px;
+    }
+  }
+
+  .couple-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 45%;
+    text-align: center;
+    width: 100%;
+  }
+
+  .img-wrap {
+    display: inline-block;
+    vertical-align: top;
+    // width: 200px;
+    // height: 200px;
+    // border-radius: 50%;
+    margin: 0 auto;
+    width: 55%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      // background: #eee;
+      // border-radius: 50%;
+    }
+  }
+
+  .couple-name {
+    font-family: var(--font-secondary);
+    // font-size: 0.98rem;
+    font-size: 24px;
+    color: var(--text-primary);
+    // margin-bottom: 14px;
+    text-align: center;
+    // border-bottom: 2px dashed var(--ion-text-color-step-700);
+    // padding-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .couple-parents {
+    font-family: var(--visiapro-bold);
+    color: var(--text-primary);
+    // font-size: 0.67rem;
+    font-size: 12px;
+    // border-bottom: 2px dashed var(--ion-text-color-step-700);
+    // margin-bottom: 20px;
+    white-space: pre-line;
+  }
+}
+
+.divider-line {
+  width: 50px;
+  border-bottom: 2px dashed var(--ion-text-color-step-200);
+  margin: 12px 0px;
+}
+
+.couple-card {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px 0px;
+}
+
+.profile-image {
+  margin-top: -40px;
+  filter: drop-shadow(0 0 0.75rem #000);
+  height: 290px;
+  border-radius: 200px 200px 0px 0px;
+  // background: url(https://sin1.contabostorage.com/2db3bf1…:indoinvite-staging/indoinvite-staging/indoinvite-staging/nikah/upload/1952/1679297306foto_pria.jpeg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.alias {
+  h1 {
+    font-family: var(--font-regular);
+    font-size: 50px;
+    padding: 0;
+    margin-top: 0px;
+    color: var(--text-primary);
+    text-align: center;
+    font-weight: 700;
+  }
+}
+
+
+@media only screen and (min-width: 599px) {
+  .profile-image {
+    height: 450px;
+  }
+}

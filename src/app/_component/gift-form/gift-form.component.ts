@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FileDropComponent } from '../file-drop/file-drop.component';
 import { IonTextarea } from '@ionic/angular/standalone';
 import { UtilityService } from 'src/services/utility/utility.service';
@@ -26,7 +26,8 @@ export class GiftFormComponent  implements OnInit, OnChanges {
 
   constructor(
     private utility: UtilityService,
-    private dataServ: DataService
+    private dataServ: DataService,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -42,6 +43,7 @@ export class GiftFormComponent  implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // console.log('on changes ', changes)
     if (changes && changes['name']) {
       this.patchForm('name', this.name);
     }
@@ -66,18 +68,21 @@ export class GiftFormComponent  implements OnInit, OnChanges {
     }
   }
 
-  submitForm(event: any) {
-    event.preventDefault(); 
+  async submitForm(event: any) {
+    event.preventDefault();
+    await this.utility.showLoader(1);
     const body: WeddingGift = this.formGroups.getRawValue();
     console.log('submit form ', body, this.bank);
     body['receipt_proof'] = this.file;
     this.dataServ.submitGift(body).then((res) => {
       console.log('result submit gift ', res);
+      this.utility.dismissLoader();
       this.file = '';
       this.formGroups.patchValue({account_name: '', amount: undefined, receipt_proof: undefined, notes: ''})
       this.utility.showToast('top', res.message, undefined, undefined, 'toast-success');
     }).catch((err) => {
       console.log('err submit gift ', err);
+      this.utility.dismissLoader();
       this.utility.showToast('top', this.utility.getErrorAPI(err, 'Something went wrong, please try again later!'), undefined, undefined, 'toast-failed');
     });
   }
@@ -88,7 +93,9 @@ export class GiftFormComponent  implements OnInit, OnChanges {
 
   patchForm(key: string, value: any) {
     if (this.formGroups) {
-      this.formGroups.patchValue({[key]: value});
+      // this.zone.run(() => {
+        this.formGroups.patchValue({[key]: value});
+      // })
     }
   }
 }

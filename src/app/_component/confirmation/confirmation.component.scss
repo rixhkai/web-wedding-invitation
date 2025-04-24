@@ -1,0 +1,30 @@
+.header {
+  font-family: var(--font-secondary);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 130%;
+  letter-spacing: 0%;
+  text-align: center;
+  padding-bottom: 8px;
+}
+
+.message {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: var(--ion-text-color-step-300);
+}
+
+img {
+  width: 56px;
+  height: 56px;
+  margin: auto;
+  display: flex;
+  margin-bottom: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}

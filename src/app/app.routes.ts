@@ -12,11 +12,15 @@ export const routes: Routes = [
       import('./folder/folder.page').then((m) => m.FolderPage),
   },
   {
+    path: 'cms/user-invite',
+    loadComponent: () => import('./user-invite/user-invite.page').then( m => m.UserInvitePage)
+  },
+  {
     path: ':id',
     loadComponent: () => import('./home/home.page').then( m => m.HomePage)
   },
   {
     path: '',
     loadComponent: () => import('./home/home.page').then( m => m.HomePage)
-  },
+  }
 ];

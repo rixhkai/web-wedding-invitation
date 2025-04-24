@@ -1,7 +1,7 @@
 <form [formGroup]="formGroups" (submit)="submitForm($event)" data-aos-duration="1000" data-aos="fade-up">
   <input type="text" formControlName="bank_recipient" placeholder="Bank" [value]="bank" class="hidden">
   <input type="text" formControlName="user_id" placeholder="User ID" [value]="userId" class="hidden">
-  <input type="text" formControlName="name" name="name" placeholder="Name" [value]="name">
+  <input type="text" formControlName="name" name="name" placeholder="Name">
   <input type="text" formControlName="account_name" name="account_name" placeholder="Account Owner Name">
   <div class="wrap-textarea">
     <ion-textarea type="text" [autoGrow]="true" formControlName="notes" name="notes" placeholder="Message"></ion-textarea>

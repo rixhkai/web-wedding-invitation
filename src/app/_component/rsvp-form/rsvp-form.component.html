@@ -1,16 +1,31 @@
-<form [formGroup]="formGroups" (submit)="submitForm($event)" data-aos="fade-up" data-aos-duration="1000">
+<form [formGroup]="formGroups" (submit)="submitForm($event)" data-aos="zoom-in" data-aos-duration="1000">
   <!-- <div *ngIf="name">{{ name }}</div> -->
   <input type="text" formControlName="user_id" placeholder="User ID" [value]="userId" class="hidden">
-  <input type="text" formControlName="name" name="name" placeholder="Name">
-  <input type="email" formControlName="email" name="email" placeholder="Email">
-  <input type="tel" formControlName="phone" name="phone" placeholder="No HP">
-  <div class="card">
+  <input type="text" formControlName="name" name="name" placeholder="Name" data-aos="fade-up" data-aos-duration="1000">
+  <input type="email" formControlName="email" name="email" placeholder="Email" data-aos="fade-up" data-aos-duration="1000">
+  <input type="tel" formControlName="phone" name="phone" placeholder="No HP" data-aos="fade-up" data-aos-duration="1000">
+  <input type="text" formControlName="relation" name="relation" placeholder="Relation" list="relation" />
+  <datalist id="relation">
+    <option>Teman Pengantin Wanita</option>
+    <option>Kerabat Pengantin Wanita</option>
+    <option>Keluarga Pengantin Wanita</option>
+    <option>Teman Kerja Pengantin Wanita</option>
+    <option>Teman Kuliah Pengantin Wanita</option>
+    <option>Teman Sekolah Pengantin Wanita</option>
+    <option>Teman Pengantin Pria</option>
+    <option>Kerabat Pengantin Pria</option>
+    <option>Keluarga Pengantin Pria</option>
+    <option>Teman Kerja Pengantin Pria</option>
+    <option>Teman Kuliah Pengantin Pria</option>
+    <option>Teman Sekolah Pengantin Pria</option>
+  </datalist>
+  <div class="card" data-aos="fade-up" data-aos-duration="1000">
     <p class="text-center">Will you attend our wedding?</p>
     <ion-button expand="block" fill="outline" class="active" [ngClass]="{'active': formGroups.value['is_attend'] == 'yes'}" (click)="changeAttend('yes')">Datang</ion-button>
     <ion-button expand="block" fill="outline" class="mgt-12" [ngClass]="{'active': formGroups.value['is_attend'] == 'no'}" (click)="changeAttend('no')">Tidak Datang</ion-button>
   </div>
 
-  <div class="card">
+  <div class="card" data-aos="fade-down" data-aos-duration="1000" [ngClass]="{'hidden': formGroups.value['is_attend'] != 'yes', 'aos-animate': formGroups.value['is_attend'] == 'yes'}">
     <p class="text-center">People you bring including you?</p>
     <div class="wrap-qty">
       <ion-button expand="block" fill="solid" [disabled]="formGroups.value['attendance'] == 1 ? true : false" (click)="changeAttendance('min')"><ion-icon name="remove"></ion-icon></ion-button>
@@ -19,5 +34,8 @@
     </div>
     
   </div>
-  <button type="submit" [disabled]="!getValue('is_attend') ? true : false">Submit form</button>
+  <button type="submit" [disabled]="!getValue('is_attend') || !getValue('relation') ? true : false">
+    <div *ngIf="!isSubmit">Submit form</div>
+    <ion-spinner *ngIf="isSubmit"></ion-spinner>
+  </button>
 </form>

@@ -1,0 +1,7 @@
+<div class="pdb-40">
+  <img *ngIf="img" [src]="img"/>
+  <div class="header">{{ header | translate }}</div>
+  <div class="message">{{ message | translate }}</div>
+</div>
+<ion-button expand="block" (click)="dismiss()">{{ textCancel | translate }}</ion-button>
+<ion-button fill="clear" color="danger" expand="block" (click)="handleConfirm()">{{ textConfirm | translate }}</ion-button>

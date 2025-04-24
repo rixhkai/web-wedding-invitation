@@ -1,5 +1,7 @@
 {
   "name": "Wedding Invitation",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular-standalone"
 }

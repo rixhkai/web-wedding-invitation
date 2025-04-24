@@ -107,6 +107,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Monotype Corsiva";
+  src: url('assets/fonts/Monotype-Corsiva-Regular.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 .fs-5 {
   font-size: 5px !important;
@@ -1439,9 +1447,32 @@
 .font-regular {
   font-family: var(--font-regular);
 }
+.font-secondary {
+  font-family: var(--font-secondary);
+}
 
 .cursor-p {
   cursor: pointer;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.border-line {
+  border: 1px solid var(--ion-text-color-step-350);
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 @media only screen and (min-width: 600px) {
@@ -1507,8 +1538,8 @@ p {
 }
 
 .music-outer ion-icon {
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   cursor: pointer;
   // background-image: url("assets/icon/music-cd.svg");
   position: relative;
@@ -1546,6 +1577,13 @@ p {
     } 
 }
 
+@media screen and (max-width: 599px) {
+  .music-outer ion-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .sc-ion-select-popover-md ion-radio.sc-ion-select-popover-md::part(label),
 .sc-ion-select-popover-ios ion-radio.sc-ion-select-popover-ios::part(label) {
   white-space: pre-line;
@@ -1571,5 +1609,41 @@ form {
 
   &.item-radio-checked.sc-ion-select-popover-md {
     --background-focused: var(--ion-text-color);
+  }
+}
+
+.inline-bot-confirm {
+  --height: auto;
+  --border-radius: 24px;
+
+  &::part(content) {
+    padding: 32px;
+    position: absolute;
+    bottom: calc(var(--ion-safe-area-bottom, 0) + 20px);
+    margin: 0px;
+    width: 70%;
+  }
+}
+
+ion-modal.auto-height {
+  --height: auto;
+}
+
+ion-modal.auto-height .ion-page {
+  position: relative;
+  display: block;
+  contain: content;
+}
+
+ion-modal.auto-height .ion-page .inner-content {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+ion-modal.auto-height--middle {
+  @extend .auto-height;
+  &::part(content) {
+    margin: 0px 16px;
+    border-radius: 8px;
   }
 }

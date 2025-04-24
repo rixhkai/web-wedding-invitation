@@ -1,0 +1,50 @@
+<ion-button *ngIf="!getAuth()" (click)="isModalLoginOpen = true;">Login</ion-button>
+<ion-button *ngIf="getAuth()" (click)="logout()">Logout</ion-button>
+
+<ion-modal
+  class="auto-height--middle"
+  [isOpen]="isModalLoginOpen"
+  (willDismiss)="onModalAction('dismiss')"
+  (didPresent)="onModalAction('present')">
+  <ng-template>
+    <div class="prompt-container">
+      <div class="user-profile">
+        <img src="assets/icon/favicon.png"/>
+        <div class="fs-20 fw-500 pdt-24">{{ 'LOGIN_TITLE' | translate }}</div>
+      </div>
+
+      <div class="pdt-24">
+        <!-- <div class="border-line bdra-8 pd-16 align-center mgb-8 ion-activatable ripple-parent" (click)="doLogin('email')">
+          <ion-icon name="mail" color="primary" class="fs-24 pdr-12"></ion-icon>
+          <div>{{ 'LOGIN_EMAIL' | translate }}</div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div> -->
+        <!-- <div class="border-line bdra-8 pd-16 align-center mgb-8 ion-activatable ripple-parent" (click)="doLogin('phone')">
+          <ion-icon name="ic-baseline-phone-android" color="primary" class="fs-24 pdr-12"></ion-icon>
+          <div>{{ 'LOGIN_PHONE' | translate }}</div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div> -->
+        <div class="border-line bdra-8 pd-16 align-center mgb-8 ion-activatable ripple-parent cursor-p" (click)="doLogin('google')">
+          <ion-icon name="logo-google" color="primary" class="fs-24 pdr-12"></ion-icon>
+          <div>{{ 'LOGIN_GOOGLE' | translate }}</div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <!-- <div class="border-line bdra-8 pd-16 align-center mgb-8 ion-activatable ripple-parent" (click)="doLogin('apple')">
+          <ion-icon name="logo-apple" color="primary" class="fs-24 pdr-12"></ion-icon>
+          <div>{{ 'LOGIN_APPLE' | translate }}</div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div> -->
+      </div>
+
+      <!-- <div class="foot-container">
+        <div class="fc-content">
+          <span>{{ 'CONTINUE_AGREED_TO' | translate }}</span>
+          <span class="txt-color-primary pdl-6">{{ 'TERMS_OF_SERVICES' | translate }}</span>
+          <span class="pdl-6">{{ 'AND' | translate }}</span>
+          <span class="txt-color-primary pdl-6">{{ 'PRIVACY_POLICY' | translate }}</span>
+        </div>
+      </div> -->
+
+    </div>
+  </ng-template>
+</ion-modal>

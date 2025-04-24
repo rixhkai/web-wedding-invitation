@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, NgFor, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonTextarea, Platform } from '@ionic/angular/standalone';
 import AOS from 'aos';
 import { SwiperContainer } from 'swiper/element';
 import { Swiper } from 'swiper/types';
@@ -15,6 +15,12 @@ import { User } from '../_model/data';
 import { FileDropComponent } from '../_component/file-drop/file-drop.component';
 import { GiftFormComponent } from '../_component/gift-form/gift-form.component';
 import { RsvpFormComponent } from '../_component/rsvp-form/rsvp-form.component';
+import { Clipboard } from '@capacitor/clipboard';
+import { CoverflowComponent } from '../_component/coverflow/coverflow.component';
+import global from 'src/config/global';
+import { ProfileCardComponent } from '../_component/profile-card/profile-card.component';
+import { CommentsComponent } from '../_component/comments/comments.component';
+import { FooterComponent } from '../_component/footer/footer.component';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +28,8 @@ import { RsvpFormComponent } from '../_component/rsvp-form/rsvp-form.component';
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, NgFor, NgStyle, ImageViewerComponent, DisqusComponent, IonSelect, IonSelectOption,
-    FileDropComponent, IonTextarea, GiftFormComponent, RsvpFormComponent
+    FileDropComponent, IonTextarea, GiftFormComponent, RsvpFormComponent, CoverflowComponent,
+    ProfileCardComponent, CommentsComponent, FooterComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -30,23 +37,75 @@ export class HomePage implements OnInit, AfterViewInit {
   @ViewChild('swiperGallery', { static: true }) readonly swiperGallery?: ElementRef<SwiperContainer>
   @ViewChild('player') player: ElementRef<HTMLAudioElement> |undefined = undefined;
 
-  imgPath: string = 'assets/img/cover/';
+  imgPath: string = global.cdnPath + '/cover/pane/';
+  pathStory: string = global.cdnPath + '/cover/story/';
+  pathAncol: string = global.cdnPath + '/cover/ancol2/';
+  pathJawa: string = global.cdnPath + '/cover/jawa/';
+  pathSuit: string = global.cdnPath + '/cover/suit/';
+  pathEngage: string = global.cdnPath + '/cover/engange/';
   // coverPane = [this.imgPath+'photo-city.avif', this.imgPath+'photo-coral-sea.avif', this.imgPath+'photo-jungle.avif', this.imgPath+'photo-sand-rock.avif', this.imgPath+'photo-sea-sunset.avif'];
   coverPane = [this.imgPath+'1.jpg', this.imgPath+'2.jpg', this.imgPath+'3.jpg', this.imgPath+'4.jpg', this.imgPath+'5.jpg', this.imgPath+'6.jpg', this.imgPath+'7.jpg', this.imgPath+'8.jpg', this.imgPath+'9.jpg'];
+  coverAncol = [
+    this.pathAncol+'1.jpg',
+    this.pathAncol+'2.jpg',
+    this.pathAncol+'3.jpg',
+    this.pathAncol+'4.jpg',
+    this.pathAncol+'5.jpg',
+    this.pathAncol+'6.jpg',
+    this.pathAncol+'7.jpg',
+    this.pathAncol+'8.jpg',
+    this.pathAncol+'9.jpg',
+    this.pathAncol+'10.jpg',
+    this.pathAncol+'11.jpg',
+    this.pathAncol+'12.jpg',
+    this.pathAncol+'13.jpg',
+    this.pathAncol+'14.jpg'
+  ];
+  coverJawa = [
+    this.pathJawa+'1.jpg',
+    this.pathJawa+'2.jpg',
+    this.pathJawa+'3.jpg',
+    this.pathJawa+'4.jpg',
+    this.pathJawa+'5.jpg',
+    this.pathJawa+'6.jpg',
+    this.pathJawa+'7.jpg',
+    this.pathJawa+'8.jpg',
+    this.pathJawa+'9.jpg',
+    this.pathJawa+'10.jpg',
+    this.pathJawa+'11.jpg',
+    this.pathJawa+'12.jpg'
+  ];
+  coverSuit = [
+    this.pathSuit+'4.jpg',
+    this.pathSuit+'3.jpg',
+    this.pathSuit+'5.jpg',
+    this.pathSuit+'6.jpg',
+    this.pathSuit+'2.jpg',
+    this.pathSuit+'7.jpg',
+    this.pathSuit+'8.jpg',
+    this.pathSuit+'1.jpg'
+  ];
+  coverEngage = [
+    this.pathEngage+'1.jpg',
+    this.pathEngage+'2.jpg',
+    this.pathEngage+'3.jpg',
+    this.pathEngage+'4.jpg',
+    this.pathEngage+'5.jpg',
+    this.pathEngage+'6.jpg',
+    this.pathEngage+'7.jpg'
+  ];
+
+  coverGallery = this.coverSuit.concat(this.coverAncol);
 
   id: string = '';
   title: string = 'Putri & Rijal';
   guestName: string = 'Kepada Yth\n Bapak/Ibu/Saudara/i';
   user: User | null = null;
-  weddingDate: string = 'Mei 10th';
+  weddingDate: string = 'Mei 10';
   weddingYear: string = '2025';
   weddingDayOfWeek: string = 'Mei';
-  brideName: string = 'Putri Aliffia Darmawan';
-  brideDesc: string = 'Putri dari Alm Bapak Darmawan dan Ibu Rofiah';
-  brideIg: string = '@putrialiffia_98';
-  groomName: string = 'Rijal Abdullah';
-  groomDesc: string = 'Putra dari Bapak Isrori Maktoridi dan Ibu Daswiati';
-  groomIg: string = '@rijallad';
+  engageYear: string = '2025';
+  engageDate: string = 'April 19';
 
   loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
@@ -58,13 +117,19 @@ export class HomePage implements OnInit, AfterViewInit {
 
   weddingGiftDesc = 'Your blessing and coming to our wedding are enough for us. However, if you want to give a gift we provide a Digital Envelope to make it easier for you. Thank You';
 
-  mandiriAccountNumber = 'XXXXX';
+  mandiriAccountNumber = '0700010425176';
   mandiriAccountName = 'Putri Aliffia Darmawan';
+  bcaAccountNumber = '4760731965';
+  bcaAccountName = 'Putri Aliffia Darmawan';
   bankAccount = 'mandiri';
-  bankList = [{id: 'mandiri', name: 'Bank Mandiri \n ' + this.mandiriAccountNumber, bankAccount: 'Bank Mandiri (008)', accountNumber: this.mandiriAccountNumber, accountName: this.mandiriAccountName, img: ''}];
+  bankList = [
+    {id: 'mandiri', name: 'Bank Mandiri \n ' + this.mandiriAccountNumber, bankAccount: 'Bank Mandiri (008)', accountNumber: this.mandiriAccountNumber, accountName: this.mandiriAccountName, icon: 'assets/icon/logo-bank-mandiri.svg'},
+    {id: 'bca', name: 'Bank BCA \n ' + this.bcaAccountNumber, bankAccount: 'Bank BCA (014)', accountNumber: this.bcaAccountNumber, accountName: this.bcaAccountName, icon: 'assets/icon/logo-bca.svg'}
+  ];
   journey = [
-    {img: this.imgPath+'3.jpg', title: '21/09/2025', data: 'Awal kisah dua atma terbentuk. Kala itu, semesta memberikan satu hari yang begitu menggembirakan. Awal mula kata cinta terucap tanpa jeda. Saat itu juga, seorang pria dengan rasa takutnya, di atas perjalanan sebuah gondola menatap wajah pujaan hatinya. Uraian kata indah terucap dan sebuah permohonan asmara diutarakan. Hingga, senyuman indah penerimaan terbalaskan bersama hangatnya sinar mentari kala itu.'},
-    {img: this.imgPath+'5.jpg', title: '27/11/2025', data: 'Di depan luasnya bentangan laut malam itu, pria itu memantapkan tujuannya. Ia membawa pujaan hatinya melalui banyak hal indah setiap detiknya. Memberi rangkaian bunga cantik di pagi hari, berwisata di aquarium besar yang diimpikan pujaan hati, berjalan kala rintik hujan di Pantai saat senja hari. Hingga tertawa bercanda di atas sebuah jembatan di depan laut nan elok kala itu. Saat itu, ia membuka cincin, menggenggam tangan dan menatap sang pujaan hati sembari berkata “maukah kamu menjadi istriku”. Deburan ombak halus serasa mendukung hingga lamaran itu terbalas dengan kata “iya, aku mau”.'}
+    {img: this.imgPath+'3.jpg', title: '21/09/2024', data: 'Awal kisah dua atma terbentuk. Kala itu, semesta memberikan satu hari yang begitu menggembirakan. Awal mula kata cinta terucap tanpa jeda. Saat itu juga, seorang pria dengan rasa takutnya, di atas perjalanan sebuah gondola menatap wajah pujaan hatinya. Uraian kata indah terucap dan sebuah permohonan asmara diutarakan. Hingga, senyuman indah penerimaan terbalaskan bersama hangatnya sinar mentari kala itu.'},
+    {img: this.imgPath+'5.jpg', title: '27/11/2024', data: 'Di depan luasnya bentangan laut malam itu, sang pria memantapkan tujuannya. Ia membawa pujaan hatinya melalui banyak hal indah setiap detiknya. Memberi rangkaian bunga cantik di pagi hari, berwisata di aquarium besar yang diimpikan pujaan hati, berjalan kala rintik hujan di Pantai saat senja hari. Hingga tertawa bercanda di atas sebuah jembatan di depan laut nan elok kala itu. Saat itu, ia membuka cincin, menggenggam tangan dan menatap sang pujaan hati sembari berkata “maukah kamu menjadi istriku”. Deburan ombak halus serasa mendukung hingga lamaran itu terbalas dengan kata “iya, aku mau”.'},
+    {img: this.imgPath+'6.jpg', title: '19/04/2025', data: 'Kisah tuan dan nona ini akhirnya mencapai titik temu. Dua keluarga akhirnya berjabat, bertatap, dan bersepakat. Dua cincin disatukan pada jari manis kedua ananda yang berbahagia. Hari itu, 19 April 2025, kisah romansa dipersatukan pada buih rencana pernikahan. Kalimat ketulusan permintaan dan penerimaan dari keluarga dan ananda berdua terucap dengan penuh ketulusan. Untuk selanjutnya, semoga genggaman tangan ini takkan lepas. Harapnya, "Mari menua bersama, sayang".'}
   ]
 
   dayCount: number = 0;
@@ -72,18 +137,21 @@ export class HomePage implements OnInit, AfterViewInit {
   minutesCount: number = 0;
   secondsCount: number = 0;
 
-  srcAudio = '';
+  srcAudio = global.cdnPath + '/audio/backsound.aac';
+  videoFile = global.cdnPath + '/video/1.mp4';
 
-
+  isMobileWeb: boolean = false;
   isMusicPaused: boolean = true;
   interval: any = null;
   scrollRef = 0;
   lastScrollTop = 0;
+  scrollTimeout: any = null;
   constructor(
     private zone: NgZone,
     public utility: UtilityService,
     private route: ActivatedRoute,
-    private dataServ: DataService
+    private dataServ: DataService,
+    private plt: Platform
   ) {
     App.addListener('appStateChange', (state) => {
       if (state.isActive) {
@@ -105,6 +173,7 @@ export class HomePage implements OnInit, AfterViewInit {
       e = e || event;
       e.preventDefault();
     },false);
+    this.isMobileWeb = this.plt.is('mobileweb');
   }
 
   ngOnInit() {
@@ -122,28 +191,32 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   async handleScroll(event: any) {
-    // console.log('on scroll ', event);
-    // this.scrollRef <= 10 ? this.scrollRef++ : AOS.refresh();
-    // console.log("on event scroll ", event, (this.element.nativeElement as Element).className, (this.element.nativeElement as Element).scrollHeight, (this.element.nativeElement as Element).getBoundingClientRect().top);
-    var st = (event.target as Element).scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-    // console.log('check scroll top ', st,)
-    let threshold = 300;
-    let clientHeight = (event.target as Element).clientHeight;
-    // console.log('check client height ', clientHeight, st)
-    if (st > this.lastScrollTop) {
-       // downscroll code
-      //  console.log('check on scroll bot');
-      this.handlingAOS(false, clientHeight, 50, 'to-bot');
-    } else if (st < this.lastScrollTop) {
-       // upscroll code
-      // console.log('check on scroll top', st, this.lastScrollTop, clientHeight);
-      if (st < 10) {
-        this.handlingAOS(true, clientHeight);
-      } else {
-        this.handlingAOS(true, clientHeight, 50, 'to-top');
+    clearTimeout(this.scrollTimeout!);
+    this.scrollTimeout = setTimeout(() => {
+      // console.log('on scroll ', event);
+      // this.scrollRef <= 10 ? this.scrollRef++ : AOS.refresh();
+      // console.log("on event scroll ", event, (this.element.nativeElement as Element).className, (this.element.nativeElement as Element).scrollHeight, (this.element.nativeElement as Element).getBoundingClientRect().top);
+      var st = (event.target as Element).scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+      // console.log('check scroll top ', st,)
+      let threshold = 300;
+      let clientHeight = (event.target as Element).clientHeight;
+      // console.log('check client height ', clientHeight, st)
+      if (st > this.lastScrollTop) {
+         // downscroll code
+        //  console.log('check on scroll bot');
+        this.handlingAOS(false, clientHeight, 50, 'to-bot');
+      } else if (st < this.lastScrollTop) {
+         // upscroll code
+        // console.log('check on scroll top', st, this.lastScrollTop, clientHeight);
+        if (st < 10) {
+          this.handlingAOS(true, clientHeight);
+        } else {
+          this.handlingAOS(true, clientHeight, 50, 'to-top');
+        }
       }
-    }
-    this.lastScrollTop = st;
+      this.lastScrollTop = st;
+    }, 50);
+    
   }
 
   isVisible(element: Element) {
@@ -169,13 +242,15 @@ export class HomePage implements OnInit, AfterViewInit {
         //   const isVisible = (clientRect.top - aosDistance) <= (clientHeight! - threshold);
         //   console.log('check el ', el.clientHeight, el.scrollHeight, el.getBoundingClientRect().top, isVisible, clientHeight, el.className);
         // }
-        const isVisible = !clientHeight && typeof clientHeight == 'undefined' ? await this.isVisible(el) : (clientRect.top - aosDistance) <= (clientHeight! - threshold);
+        const isVisible = (clientRect.top - aosDistance) <= (clientHeight! - threshold);
         if (isVisible) {
           const isInclude = el.classList.value.includes('aos-animate');
           if (isInclude) {return;}
           this.changeClassElement('add', el, 'aos-animate');
         } else if (!isRemove || (el.getBoundingClientRect().top >= 0 && (typeof scrollType == 'undefined' || scrollType == 'to-top'))) {
           // console.log('to remove ', clientRect.top, clientHeight, el.className, scrollType)
+          const isInclude = el.classList.value.includes('aos-animate');
+          if (!isInclude) {return;}
           this.changeClassElement('remove', el, 'aos-animate');
         }
       })
@@ -236,13 +311,6 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   initFirst() {
-    this.dataServ.readFile({folder: 'audio', fileName: 'backsound.aac'}).subscribe({
-      next: (res: any) => {
-        const url = res.url;
-        this.srcAudio = url;
-        this.player!.nativeElement.load();
-      }
-    })
     this.initUser();
   }
 
@@ -250,30 +318,22 @@ export class HomePage implements OnInit, AfterViewInit {
     if (!this.id) {return;}
     this.dataServ.getUsersDetail(this.id).subscribe({
       next: (res: any) => {
-        const user: User = res.data;
-        this.guestName = user.name;
-        this.user = user;
+        if (res.data) {
+          const user: User = res.data;
+          this.guestName = user.name;
+          this.user = user;  
+        }
       }
     })
   }
 
   handleSlide(event: any, type?: string) {
-    console.log('event ', event, type)
-    // this.swiperStory?.nativeElement.swiper.update()
-    if (type == 'gallery') {
-      console.log('check run type', type, (event.swiper as Swiper).activeIndex)
-      this.zone.run(() => {
-        this.galleryPrimary = this.coverPane[(event.swiper as Swiper).activeIndex];
-      })
-      console.log('check run type', type, this.galleryPrimary)
-    }
-    event.swiper.update()
   }
 
   handleSlideClick(event: any, type?: string) {
     console.log('event sclick', event, type)
     if (type == 'gallery' && event.target.localName == 'img') {
-      this.galleryPrimary = event.target.currentSrc;
+      // this.galleryPrimary = event.target.currentSrc;
     }
   }
 
@@ -327,5 +387,37 @@ export class HomePage implements OnInit, AfterViewInit {
 
   handleOnVisible(type: any) {
     console.log('visible t', type);
+  }
+
+  copyAccount(value: string) {
+    Clipboard.write({string: value}).then(() => {
+      this.utility.showToast('top', 'Berhasil di salin ke clipboard', undefined, undefined, 'toast-success');
+    }).catch(() => {
+      this.utility.showToast('top', 'Gagal di salin ke clipboard', undefined, undefined, 'toast-failed');
+    })
+  }
+
+  addToCalendar() {
+    const body = {
+      action: 'TEMPLATE',
+      text: 'Putri & Rijal Wedding',
+      dates: '20250510T110000/20250510T140000',
+      location: this.locationAddress,
+      details: 'Dear, come on witness the love of our marriage | Putri & Rijal Wedding | Saturday, May 10th 2025'
+    }
+    const url = `https://www.google.com/calendar/render?${this.utility.formData(body)}`;
+    this.openLink(url);
+  }
+
+  openLocation() {
+    this.openLink('https://maps.app.goo.gl/wLZLP2vFo6iSYfzo7');
+  }
+
+  openLink(url: string, type: string = 'url') {
+    let newUrl = url;
+    if (type == 'ig') {
+      newUrl = 'https://instagram.com/' + url;
+    }
+    window.open(newUrl, '_system');
   }
 }

@@ -1,0 +1,17 @@
+<div class="">
+  <div class="wrap-input">
+    <input [(ngModel)]="comment" placeholder="Give your wish..."/>
+    <ion-button fill="solid" [disabled]="!comment" (click)="submit()">
+      {{ 'Send' }}
+      <ion-icon name="send" class="pdl-10"></ion-icon>
+    </ion-button>
+  </div>
+  <div *ngFor="let item of commentList" class="wrap-comments">
+    <div class="wc-info">
+      <div class="wci-name">{{ item.user && item.user.name ? item.user.name : 'Anonymous' }}</div>
+      <div class="wci-date">{{ utility.backFormatDate(item.date_created, 'd MMM yyyy, HH:mm') }}</div>
+    </div>
+    <div class="comment">{{ item.comment }}</div>
+  </div>
+  <ion-button *ngIf="page <= totalPage" fill="outline" expand="block" class="mg-0 mgt-20" (click)="initComment('paging')">{{ 'Show More Comments' }}</ion-button>
+</div>

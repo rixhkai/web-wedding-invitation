@@ -1,4 +1,15 @@
 {
   "TITLE_DRAG_DROP": "Upload proof of Transfer",
-  "SUBTITLE_DRAG_DROP": "Screenshot / Photo Slip Transfer"
+  "SUBTITLE_DRAG_DROP": "Screenshot / Photo Slip Transfer",
+
+  "GET_STARTED": "Get Started",
+  "LOGIN_TITLE": "Continue with an account...",
+  "LOGIN_EMAIL": "Continue with Email",
+  "LOGIN_PHONE": "Continue with Phone",
+  "LOGIN_GOOGLE": "Continue with Google",
+  "LOGIN_APPLE": "Continue with Apple",
+  "CONTINUE_AGREED_TO": "By continue you agree to the",
+  "TERMS_OF_SERVICES": "Terms of Services",
+  "AND": "and",
+  "PRIVACY_POLICY": "Privacy Policy"
 }

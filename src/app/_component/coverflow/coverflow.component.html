@@ -1,0 +1,34 @@
+<!-- <swiper-container
+  autoplay
+  autoplay-delay="1"
+  autoplay-disable-on-interaction="false"
+  effect="coverflow"
+  auto-height="true"
+  speed="5000"
+  space-between="5"
+  [loop]="items.length > 4 ? true : false"
+  slides-per-view="1.4"
+  centered-slides="true"
+  coverflow-effect-depth="200"
+  coverflow-effect-slide-shadows="false"
+  coverflow-effect-stretch="0"
+  coverflow-effect-modifier="1"
+  coverflow-effect-rotate="0">
+  <swiper-slide *ngFor="let item of items">
+    <div class="swiper-slide-transform">
+      <img [src]="item"/>
+      <div class="swiper-lazy-preloader"></div>
+    </div>
+  </swiper-slide>
+</swiper-container> -->
+
+<swiper-container #swiper
+  init="false"
+  auto-height>
+  <swiper-slide *ngFor="let item of items">
+    <div class="swiper-slide-transform">
+      <img [src]="item"/>
+      <div class="swiper-lazy-preloader"></div>
+    </div>
+  </swiper-slide>
+</swiper-container>

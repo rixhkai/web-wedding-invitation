@@ -10,6 +10,8 @@ import { register } from 'swiper/element/bundle';
 import * as icons from 'ionicons/icons';
 import { TranslateService } from '@ngx-translate/core';
 import Aos from 'aos';
+import { Autoplay, EffectCoverflow, EffectFade, FreeMode, Pagination } from 'swiper/modules';
+import { DataService } from 'src/services/data/data.service';
 
 // register Swiper custom elements
 register();
@@ -35,7 +37,8 @@ export class AppComponent {
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(
     private route: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private data: DataService
   ) {
     addIcons(icons);
     route.events.subscribe(event => {
@@ -47,5 +50,34 @@ export class AppComponent {
     })
     this.translate.use('en');
     Aos.init({once: false, initClassName: 'aos-init'});
+    // this.initSwiper();
+    this.data.initFirebase();
+  }
+
+  initSwiper() {
+    const swiperEl = document.querySelector('swiper-container');
+    console.log('swiper el ', swiperEl)
+
+    if (!swiperEl) {
+      setTimeout(() => {
+        this.initSwiper();
+      }, 200)
+      return;
+    }
+
+    const params = {
+      modules: [Autoplay, EffectCoverflow, EffectFade, FreeMode, Pagination],
+      // inject modules styles to shadow DOM
+      injectStylesUrls: [
+        'swiper/element/css/autoplay',
+        'swiper/element/css/effect-coverflow',
+        'swiper/element/css/effect-fade',
+        'swiper/element/css/free-mode'
+      ],
+    };
+
+    Object.assign(swiperEl, params);
+
+    swiperEl.initialize();
   }
 }

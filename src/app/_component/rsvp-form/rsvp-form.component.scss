@@ -69,6 +69,8 @@ form .hidden {
   height: 0;
   margin: 0;
   padding: 0;
+  opacity: 0;
+  transform: translateY(-100px);
 }
 
 .wrap-qty {

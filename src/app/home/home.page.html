@@ -25,7 +25,7 @@
             disable-on-interaction="false"
             effect="fade"
             speed="1700">
-            <swiper-slide *ngFor="let item of coverPane">
+            <swiper-slide *ngFor="let item of coverAncol">
               <div class="zoom-container">
                 <img [src]="item"/>
               </div>
@@ -47,14 +47,8 @@
   
             <p class="top-text " data-aos="fade-down" data-aos-duration="1000" style="opacity: 1; transition-duration: 1000ms;">Wedding Invitation</p>
             <h1 class="prime-title " data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" style="opacity: 1; transition-duration: 1000ms;">{{ title }}</h1>
-            <p class="bottom-text " data-aos="fade-up" data-aos-duration="1000" style="opacity: 1; transition-duration: 1000ms;">#TentangRasaAsmaraloka</p>
+            <p class="bottom-text " data-aos="fade-up" data-aos-duration="1000" style="opacity: 1; transition-duration: 1000ms;">#TentangGamaAsmaraloka</p>
             <p class="date " data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" style="opacity: 1; transition-duration: 1000ms;">{{ weddingDate }}<sup>th</sup>, {{ weddingYear }}</p>
-            
-            <div class="torsvp--btn-wrap " data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300" lg-uid="lg0" style="opacity: 1; transition-duration: 1200ms;">
-              <a href="https://katsudoto-storage.s3.ap-southeast-1.amazonaws.com/media/public/12995/11868/qr/e-invitation-536801-1669905700.png" class="torsvp--btn">
-                E-Invitation
-              </a>
-            </div>
   
           </div>
           <div class="body highlight " data-aos="zoom-out" data-aos-duration="2000" style="opacity: 1;transition-duration: 2000ms;">
@@ -66,11 +60,11 @@
               speed="1700">
               <swiper-slide>
                 <!-- <div class="zoom-container">
-                  <img [src]="item"/>
+                  <img [src]="'assets/video1.gif'"/>
                 </div> -->
                 <div class="video-container">
                   <video autoplay muted loop id="myVideo">
-                    <source src="assets/video1.mp4" type="video/mp4">
+                    <source [src]="videoFile" type="video/mp4">
                     <!-- Your browser does not support HTML5 video. -->
                   </video>
                 </div>
@@ -81,73 +75,13 @@
       </section>
 
       <section class="primary-pane-small">
-        <div>
-          <swiper-container
-            autoplay
-            autoplay-delay="1"
-            
-            
-            effect="coverflow"
-            speed="2000"
-            auto-height="true"
-            space-between="5"
-            slides-per-view="1.4"
-            loop="true"
-            centered-slides="true"
-            coverflow-effect-depth="100"
-            coverflow-effect-slide-shadows="true"
-            coverflow-effect-stretch="0"
-            coverflow-effect-modifier="1"
-            coverflow-effect-rotate="50">
-            <swiper-slide *ngFor="let item of coverPane">
-              <div lazy="true">
-                <img [src]="item" loading="lazy"/>
-              </div>
-            </swiper-slide>
-          </swiper-container>
+        <div class="pdt-20 pdb-20">
+          <app-coverflow [items]="coverJawa" />
         </div>
       </section>
 
       <!-- COUPLE WRAP -->
-       <section class="couple-wrap">
-        <div class="couple">
-          <div class="couple-head text-center">
-            <div class="couple-title pdb-20" data-aos="fade-up">﷽</div>
-            <div class="couple-description pdb-10" data-aos="fade-up">
-              Assalamu'alaikum warahmatullahi wabarakatuh
-              <br/>
-              Dengan memohon rahmat dan ridho Allah SWT, kami dengan senang hati ingin mengundang Bapak/Ibu/Saudara/Saudari dan berbagi kegembiraan pada pernikahan kami :
-            </div>
-          </div>
-
-          <div class="couple-card">
-            <ion-card class="ion-no-margin" mode="md" data-aos="zoom-in">
-              <div class="img-wrap">
-                <img/>
-              </div>
-              <div class="couple-name pdt-30">{{ brideName }}</div>
-              <div class="couple-parents pdb-12">{{ brideDesc }}</div>
-              <ion-button fill="outline" color="medium">
-                <ion-icon name="logo-instagram" class="pdr-10"></ion-icon>
-                {{ brideIg }}
-              </ion-button>
-            </ion-card>
-            <ion-card class="ion-no-margin" mode="md" data-aos="zoom-in">
-              <div class="img-wrap">
-                <img/>
-              </div>
-              <div class="couple-name pdt-30">{{ groomName }}</div>
-              <div class="couple-parents pdb-12">{{ groomDesc }}</div>
-              <ion-button fill="outline" color="medium">
-                <ion-icon name="logo-instagram" class="pdr-10"></ion-icon>
-                {{ groomIg }}
-              </ion-button>
-            </ion-card>
-          </div>
-          
-        </div>
-
-      </section>
+      <app-profile-card/>
 
       <section class="quote-wrap">
         <div data-aos="fade-up" class="quote">
@@ -159,25 +93,28 @@
 
       <section class="love-story-wrap">
         <div class="pdt-30 pdb-50">
-          <div class="pd-20 text-center font-heading fs-47" data-aos="fade-up">{{ 'Our Journey' }}</div>
+          <div class="pd-20 pdb-8 text-center font-secondary fs-47" data-aos="fade-up">{{ 'Our Journey' }}</div>
+          <p class="pd-20 pdt-0 mgt-0 text-center" data-aos="fade-up" data-aos-duration="1000" style="opacity: 1; transition-duration: 1000ms;">#TentangGamaAsmaraloka</p>
           <div class="love-story-body " data-aos="zoom-in">
             <swiper-container #swiperStory
               effect="fade"
+              fade-effect-cross-fade="true"
               speed="200"
               auto-height="true"
               pagination
-              navigation="{
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-              }"
+              navigation
               (swiperslidechange)="handleSlide(swiperStory)">
               <swiper-slide *ngFor="let item of journey">
-                <div style="background: url( {{item.img}} )" class="swiper-slide-inner">
+                <div class="swiper-slide-inner">
+                  <div style="background-image: url( {{item.img}} )" class="ssi-overlay-image"></div>
                   <div class="ssi-overlay"></div>
-                  <div class="wrap-story">
-                    <div class="story-title">{{ item.title }}</div>
-                    <p class="story-body">{{ item.data }}</p>
+                  <div class="wrap-story-container">
+                    <div class="wrap-story">
+                      <div class="story-title">{{ item.title }}</div>
+                      <p class="story-body">{{ item.data }}</p>
+                    </div>
                   </div>
+                  
                 </div>
                 
               </swiper-slide>
@@ -194,34 +131,65 @@
             <p class="gallery-description" data-aos="zoom-out" [innerHtml]="gallerySub"></p>
           </div>
           <div class="gallery-body" data-aos="zoom-in">
-            <img [src]="galleryPrimary" class="img-gallery" (click)="utility.presentImage(galleryPrimary)"/>
+            <swiper-container #swiperPreview
+              autoplay
+              autoplay-delay="2500"
+              effect="fade"
+              speed="1200"
+              auto-height="true"
+              lazy-loading
+              space-between="5"
+              slides-per-view="1"
+              [css-mode]="isMobileWeb"
+              thumbs-swiper=".gallery-tile"
+              class="gallery-preview">
+              <swiper-slide *ngFor="let item of coverGallery">
+                <div>
+                  <img [src]="item" loading="lazy"/>
+                </div>
+              </swiper-slide>
+            </swiper-container>
             <swiper-container #swiperGallery
               speed="200"
               auto-height="true"
               space-between="5"
               free-mode="true"
               slides-per-view="auto"
+              [css-mode]="isMobileWeb"
               (swiperslidechange)="handleSlide(swiperGallery, 'gallery')"
-              (swiperafterinit)="galleryPrimary = coverPane[0]"
-              (click)="handleSlideClick($event, 'gallery')">
-              <swiper-slide *ngFor="let item of coverPane">
+              (swiperafterinit)="galleryPrimary = coverGallery[0]"
+              (click)="handleSlideClick($event, 'gallery')"
+              class="gallery-tile"
+              watch-slides-progress="true">
+              <swiper-slide *ngFor="let item of coverGallery">
                 <div lazy="true">
                   <img [src]="item" loading="lazy"/>
                 </div>
               </swiper-slide>
             </swiper-container>
           </div>
+
+          <div class="pd-20 mgt-20 text-center font-regular fs-47" data-aos="fade-up" style="opacity: 1; transition-duration: 1000ms;">
+            <div>Our Engagement</div>
+            <div class="fs-20 font-secondary">{{ engageDate }}<sup>th</sup>, {{ engageYear }}</div>
+          </div>
+
+          <section class="primary-pane-small">
+            <div class="pdt-20 pdb-20">
+              <app-coverflow [items]="coverEngage" />
+            </div>
+          </section>
         </div>
         
       </section>
 
       <section class="save-date-wrap">
         <div class="save-date">
-          <div class="pd-20 text-center font-regular fs-47 save-date-head" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" style="opacity: 1; transition-duration: 1000ms;">
+          <div class="pd-20 text-center font-regular fs-47 save-date-head" data-aos="fade-up" style="opacity: 1; transition-duration: 1000ms;">
             <div>Save The Date</div>
             <p class="save-date-event">{{ weddingDate }}<sup>th</sup>, {{ weddingYear }}</p>
           </div>
-          <div class="save-date-body" data-aos="zoom-in-up" data-aos-delay="100" data-aos-duration="1000" style="opacity: 1; transition-duration: 1000ms;">
+          <div class="save-date-body" data-aos="zoom-in-up" style="opacity: 1; transition-duration: 1000ms;">
             <div class="countdown">
               <div class="count-item">
                 <div class="count-num">{{ dayCount }}</div>
@@ -240,6 +208,14 @@
                 <div class="count-text">Seconds</div>
               </div>
             </div>
+
+            <div class="d-flex pdb-12">
+              <ion-button fill="outline" color="medium" class="activity-link-wrap mgl-auto mgr-auto" data-aos="zoom-in-up" data-aos-delay="100" data-aos-duration="1000" style="opacity: 1; transition-duration: 1000ms;" (click)="addToCalendar()">
+                <ion-icon name="add" class="pdr-10"></ion-icon>
+                {{ 'Add to Calendar' }}
+              </ion-button>
+            </div>
+            
           </div>
 
           <div class="agenda-body">
@@ -257,7 +233,7 @@
                   <div class="activity-details" data-aos="fade-up" style="opacity: 1; transition-duration: 500ms;">
                     <p class="activity-hall">{{ locationName }}</p>
                     <p class="activity-address">{{ locationAddress }}</p>
-                    <ion-button fill="outline" color="medium" class="activity-link-wrap">
+                    <ion-button fill="outline" color="medium" class="activity-link-wrap" (click)="openLocation()">
                       {{ 'View Maps' }}
                     </ion-button>
                   </div>
@@ -270,7 +246,7 @@
                   <div class="activity-details" data-aos="fade-up" style="opacity: 1; transition-duration: 500ms;">
                     <p class="activity-hall">{{ locationName }}</p>
                     <p class="activity-address">{{ locationAddress }}</p>
-                    <ion-button fill="outline" color="medium" class="activity-link-wrap">
+                    <ion-button fill="outline" color="medium" class="activity-link-wrap" (click)="openLocation()">
                       {{ 'View Maps' }}
                     </ion-button>
                   </div>
@@ -305,14 +281,14 @@
                 <h3 class="bd-bank">{{ item.bankAccount }}</h3>
                 <div>
                   <small class="bd-label">{{ 'Account Number' }}</small>
-                  <h4 class="bd-number">{{ item.accountNumber }}</h4>
+                  <h4 class="bd-number" (click)="copyAccount(item.accountNumber)">{{ item.accountNumber }} <ion-icon name="copy"></ion-icon></h4>
                 </div>
                 <div>
                   <small class="bd-label">{{ 'Account Name' }}</small>
                   <h4 class="bd-name">{{ item.accountName }}</h4>
                 </div>
               </div>
-              <div class="bank-img"><img/></div>
+              <div class="bank-img"><ion-icon [src]="item.icon"></ion-icon></div>
             </ion-card>
           }
 
@@ -325,7 +301,12 @@
         <div class="pd-20 text-center font-regular fs-47 save-date-head mgb-30" data-aos="fade-up" data-aos-delay="100" style="opacity: 1; transition-duration: 1000ms;">
           <div>Wedding Wish</div>
         </div>
-        <app-disqus [identifier]="'rijlab'"></app-disqus>
+        <!-- <app-disqus [identifier]="'rijlab'"></app-disqus> -->
+         <app-comments [userId]="user && user.id"/>
+      </section>
+
+      <section>
+        <app-footer/>
       </section>
     </div>
   </div>

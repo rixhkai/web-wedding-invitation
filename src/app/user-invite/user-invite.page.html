@@ -1,0 +1,43 @@
+<ion-content>
+  <div class="inner-content">
+    <app-login-prompt (onChange)="initUser()"/>
+  </div>
+  <div class="inner-content">
+    <ion-button (click)="import()">{{ 'Import' }}</ion-button>
+    <ion-button (click)="editContact(null)">{{ 'Add new User' }}</ion-button>
+    <ion-searchbar [(ngModel)]="q" placeholder="Search User Name" minLength="3" (ionChange)="initUser()" (ionClear)="initUser()"></ion-searchbar>
+  </div>
+  <div *ngIf="!errMsg" class="inner-content">
+    <div *ngFor="let item of getUsers()" class="card-item">
+      <div class="label">
+        <div>{{ 'Name' }}</div>
+        <div>{{ item.name }}</div>
+      </div>
+      <div class="label">
+        <div>{{ 'Date Created' }}</div>
+        <div>{{ item.date_created ? utility.backFormatDate(item.date_created, 'd MMM yyyy, HH:mm') : '-' }}</div>
+      </div>
+      <div class="label">
+        <div>{{ 'Email' }}</div>
+        <div>{{ item.email ? item.email : '-' }}</div>
+      </div>
+      <div class="label">
+        <div>{{ 'Phone' }}</div>
+        <div>{{ item.phone ? item.phone : '-' }}</div>
+      </div>
+      <div class="button">
+        <ion-button (click)="editContact(item)">{{ 'Edit' }}</ion-button>
+        <ion-button (click)="copyLink(item.id)">{{ 'Copy Link' }}</ion-button>
+        <ion-button (click)="deleteContact(item)">{{ 'Delete' }}</ion-button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errMsg" class="inner-content">{{ errMsg }}</div>
+</ion-content>
+
+<ion-modal [isOpen]="modalOpen" (willDismiss)="modalOpen = false">
+  <ng-template>
+    <app-user-form [user]="user"/>
+  </ng-template>
+</ion-modal>

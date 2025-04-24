@@ -1,7 +1,7 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
 import { DataService } from 'src/services/data/data.service';
 import { UtilityService } from 'src/services/utility/utility.service';
 
@@ -10,15 +10,16 @@ import { UtilityService } from 'src/services/utility/utility.service';
   templateUrl: './rsvp-form.component.html',
   styleUrls: ['./rsvp-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, IonButton, IonIcon, NgClass, NgIf]
+  imports: [ReactiveFormsModule, IonButton, IonIcon, NgClass, NgIf, IonSpinner]
 })
 export class RsvpFormComponent  implements OnInit, OnChanges {
   @Input() userId: string | null = '';
   @Input() name: string | null = '';
   formGroups!: FormGroup;
 
-  maxAttendance = 2;
+  maxAttendance = 3;
   EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  isSubmit = false;
   constructor(
     private utility: UtilityService,
     private dataServ: DataService
@@ -31,7 +32,8 @@ export class RsvpFormComponent  implements OnInit, OnChanges {
       email: new FormControl(),
       phone: new FormControl(),
       is_attend: new FormControl(undefined),
-      attendance: new FormControl(1)
+      attendance: new FormControl(1),
+      relation: new FormControl()
     })
     console.log('check form group oninit', this.formGroups?.value)
   }
@@ -63,7 +65,7 @@ export class RsvpFormComponent  implements OnInit, OnChanges {
     })
   }
 
-  submitForm(event: any) {
+  async submitForm(event: any) {
     event.preventDefault();
     const body = this.formGroups.getRawValue();
     if (body.email && !this.EMAIL_REGEXP.test(body.email)) {
@@ -73,12 +75,18 @@ export class RsvpFormComponent  implements OnInit, OnChanges {
     body['is_attend'] = body['is_attend'] == 'yes' ? true : false;
     console.log('check body ', body, this.userId, this.name, this.formGroups.value)
     // return;
+    if (this.isSubmit) {
+      return;
+    }
+    this.isSubmit = true;
     this.dataServ.submitRSVP(body).subscribe({
       next: (res: any) => {
+        this.isSubmit = false;
         this.utility.showToast('top', res.message, undefined, undefined, 'toast-success');
       },
       error: (error: any) => {
         console.log('err ', error)
+        this.isSubmit = false;
         this.utility.showToast('top', this.utility.getErrorAPI(error, 'Something went wrong, please try again later!'), undefined, undefined, 'toast-failed');
       }
     })

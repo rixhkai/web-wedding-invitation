@@ -24,5 +24,27 @@ export type User = {
   id: string,
   name: string,
   email?: string,
+  phone?: string,
+  date_created?: string,
+  date_modified?: string
+}
+
+export type UserRequest = {
+  name: string,
+  email?: string,
   phone?: string
+}
+
+export type R2Files = {
+  url?: string,
+  key: string
+}
+
+export type Comment = {
+  id: string,
+  comment: string,
+  user_id?: string,
+  date_created: string,
+  date_modified?: string,
+  user?: User
 }

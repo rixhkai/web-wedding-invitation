@@ -1,0 +1,55 @@
+<section class="couple-wrap">
+  <div class="couple">
+    <div class="couple-head text-center">
+      <div class="couple-title pdb-20" data-aos="zoom-in">﷽</div>
+      <div class="couple-description pdb-10" data-aos="zoom-in">
+        Assalamu'alaikum warahmatullahi wabarakatuh
+        <br/>
+        Dengan memohon rahmat dan ridho Allah SWT, kami dengan senang hati ingin mengundang Bapak/Ibu/Saudara/Saudari dan berbagi kegembiraan pada pernikahan kami :
+      </div>
+    </div>
+
+    <div class="couple-card">
+      <ion-card class="ion-no-margin" mode="md" data-aos="zoom-in">
+        <div class="couple-info">
+          <div class="couple-name pdt-30">{{ groomName }}</div>
+          <div class="divider-line"></div>
+          <div class="couple-parents">{{ groomDesc }}</div>
+          <div class="divider-line"></div>
+          <ion-button fill="outline" color="dark" (click)="openLink(groomIg.substr(1), 'ig')">
+            <ion-icon name="logo-instagram" class="pdr-10"></ion-icon>
+            {{ groomIg }}
+          </ion-button>
+        </div>
+        <div class="img-wrap">
+          <img [src]="logoGroom"/>
+          <div class="profile-image" [ngStyle]="{'background-image': 'url(' + groomImg +')'}"></div>
+        </div>
+      </ion-card>
+      <div class="alias">
+        <h1 data-aos="zoom-in" data-aos-duration="1200" class="" style="opacity: 1; transition-duration: 1200ms;">
+          {{ title }}
+        </h1>
+      </div>
+      <ion-card class="ion-no-margin" mode="md" data-aos="zoom-in">
+        <div class="img-wrap">
+          <img [src]="logoBride"/>
+          <div class="profile-image" [ngStyle]="{'background-image': 'url(' + brideImg +')'}"></div>
+        </div>
+        <div class="couple-info">
+          <div class="couple-name pdt-30">{{ brideName }}</div>
+          <div class="divider-line"></div>
+          <div class="couple-parents">{{ brideDesc }}</div>
+          <div class="divider-line"></div>
+          <ion-button fill="outline" color="dark" (click)="openLink(brideIg.substr(1), 'ig')">
+            <ion-icon name="logo-instagram" class="pdr-10"></ion-icon>
+            {{ brideIg }}
+          </ion-button>
+        </div>
+        
+      </ion-card>
+    </div>
+    
+  </div>
+
+</section>

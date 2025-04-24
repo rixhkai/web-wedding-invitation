@@ -1,7 +1,7 @@
 $padRight: -1px;
 
 :host {
-  right: $padRight;
+  // right: $padRight;
 }
 
 ion-content {
@@ -33,6 +33,7 @@ ion-content {
   bottom: 0;
   position: fixed;
   width: calc(100vw - 39%);
+  opacity: 99.5%;
 }
 
 .primary-pane .inner-content::before {
@@ -45,6 +46,7 @@ ion-content {
   height: 100%;
   /* background-color: rgb(0 0 0 / 30%); */
   background: linear-gradient(to bottom, rgb(0 0 0 / 50%) 0%, rgb(255 255 255 / 0%), rgb(0 0 0 / 50%) 90%);
+  opacity: 99.5%;
 }
 
 .primary-pane .inner-content {
@@ -57,6 +59,7 @@ ion-content {
   display: flex;
   flex-direction: column;
   position: absolute;
+  opacity: 99.5%;
 
   .highlight {
     position: absolute;
@@ -65,6 +68,7 @@ ion-content {
     width: 100%;
     height: 100%;
     background: var(--ion-background-color);
+    opacity: 99.5%;
   }
 }
 
@@ -82,6 +86,7 @@ ion-content {
   justify-content: flex-end;
   padding: 10px;
   z-index: 2;
+  opacity: 99.5%;
 
   h1 {
     font-family: var(--font-regular);
@@ -103,9 +108,15 @@ ion-content {
 }
 
 .primary-pane-small {
-  padding: 40px 0px;
+  // padding: 20px 0px 40px;
+  position: relative;
   swiper-slide, swiper-slide div {
     height: 450px;
+  }
+
+  swiper-slide div {
+    overflow: hidden;
+    border-radius: 8px;
   }
 
   // swiper-slide {
@@ -119,7 +130,7 @@ ion-content {
 .secondary-pane {
   position: static;
   right: 0;
-  width: calc(100vw - 61vw - $padRight);
+  width: calc(100vw - 61vw);
   margin-left: auto;
   max-height: 100vh;
   overflow-y: scroll;
@@ -137,6 +148,7 @@ section.cover .inner-content::before {
   right: 0;
   bottom: 0;
   background: linear-gradient(to bottom, rgb(0 0 0 / 40%) 0%, rgb(255 255 255 / 0%), rgb(0 0 0 / 40%) 90%);
+  opacity: 99.5%;
 }
 
 swiper-container, .zoom-container {
@@ -220,6 +232,7 @@ section.cover .inner-content {
     left: 0;
     bottom: 0;
     z-index: 2;
+    opacity: 99.5%;
   }
 
   .head {
@@ -257,6 +270,7 @@ section.cover .inner-content {
     z-index: 1;
     padding: 0;
     display: block;
+    opacity: 99.5%;
 
     swiper-slide {
       position: relative;
@@ -291,99 +305,7 @@ section.cover .inner-content {
   }
 
 
-  // couple wrap
-  .couple-wrap {
-    position: relative;
-    overflow: hidden;
-    .couple {
-      padding: 40px 0;
-    }
-
-    .couple-head {
-      text-align: center;
-      padding: 20px;
-    }
-    
-  }
-}
-
-body:not(.custom-fonts) .couple-head .couple-title {
-  // font-family: var(--creattion-demo);
-  font-family: var(--font-regular);
-}
-
-.couple-head .couple-description {
-  font-family: var(--visiapro-light);
-  font-style: italic;
-}
-
-.couple-head .couple-title {
-  font-family: var(--heading-family);
-  font-size: calc(var(--heading-size) + 20px);
-  margin-bottom: 0.15em;
-  line-height: 1;
-}
-
-.couple-wrap {
-  padding: 50px 24px;
-
-  ion-card {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    border-radius: 12px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 20px;
-
-    ion-button {
-      --padding-end: 10px;
-      --padding-start: 10px;
-      --border-radius: 8px;
-      --border-width: 1px;
-      font-family: var(--visiapro-semibold);
-      text-transform: unset;
-    }
-  }
-
-  .img-wrap {
-    display: inline-block;
-    vertical-align: top;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin: 0 auto;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      background: #eee;
-      border-radius: 50%;
-    }
-  }
-
-  .couple-name {
-    font-family: var(--heading-family);
-    font-size: calc(var(--heading-size) + 16px);
-    color: var(--text-primary);
-    margin-bottom: 0.65em;
-    text-align: center;
-  }
-
-  .couple-parents {
-    font-family: var(--visiapro-bold);
-    margin-bottom: 0.3em;
-    color: var(--text-primary);
-  }
-}
-
-.couple-card {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0px;
+  
 }
 
 .quote-wrap {
@@ -409,6 +331,16 @@ body:not(.custom-fonts) .couple-head .couple-title {
     padding: 80px 0px;
     position: relative;
     overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+  }
+
+  .wrap-story-container {
+    // height: 100%;
   }
 
   .ssi-overlay {
@@ -417,7 +349,21 @@ body:not(.custom-fonts) .couple-head .couple-title {
     right: 0;
     left: 0;
     bottom: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+    opacity: 99.5%;
+  }
+
+  .ssi-overlay-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: center;
+    // filter: blur(8px);
+    // -webkit-filter: blur(8px);
   }
   
   swiper-container::part(bullet-active) {
@@ -454,7 +400,7 @@ body:not(.custom-fonts) .couple-head .couple-title {
   z-index: 2;
   overflow-y: auto;
   display: flex;
-  justify-content: flex-start;
+  // justify-content: center;
   flex-direction: column;
   color: var(--text-secondary);
   max-height: 420px;
@@ -468,20 +414,25 @@ body:not(.custom-fonts) .couple-head .couple-title {
   font-family: var(--font-regular);
   font-size: calc(var(--heading-size) + 17px);
   line-height: 1;
+  flex: 1;
+  font-weight: 600;
 }
 
 .story-body {
   font-family: var(--visiapro-light);
   color: var(--text-secondary);
+  flex: 1;
+  font-weight: 600;
 }
 
 .gallery-wrap {
-  padding: 20px;
-  background: var(--background-secondary);
+  padding: 20px 0px;
+  background: linear-gradient(84deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+  color: var(--text-secondary);
 }
 
 .gallery-head {
-  padding: 20px;
+  padding: 0px 0px 16px;
   text-align: center;
 }
 
@@ -500,13 +451,15 @@ body:not(.custom-fonts) .couple-head .couple-title {
 
 .gallery-body {
   position: relative;
-  min-height: 500px;
+  min-height: calc(100vh);
   background: rgba(0,0,0,0.3);
-  border-radius: 12px;
+  border-radius: 0px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   .img-gallery {
-    height: 500px;
+    height: calc(100vh);
     width: 100%;
     object-fit: cover;
   }
@@ -521,13 +474,27 @@ body:not(.custom-fonts) .couple-head .couple-title {
   }
 
   swiper-slide {
-    width: 100px !important;
+    width: 100px;
   }
 
   swiper-container::part(pagination) {
     bottom: 0;
     top: unset;
   }
+
+  swiper-container.gallery-preview swiper-slide,
+  swiper-container.gallery-preview swiper-slide div {
+    width: 100%;
+    height: calc(100vh - 100px);
+  }
+}
+
+.gallery-tile swiper-slide {
+  opacity: 0.5;
+}
+
+.gallery-tile .swiper-slide-thumb-active {
+  opacity: 1;
 }
 
 
@@ -559,6 +526,7 @@ body:not(.custom-fonts) .couple-head .couple-title {
   height: 1.5px;
   width: 80%;
   background-color: rgba(var(--dark-rgb), .5);
+  opacity: 99.5%;
 }
 
 .save-date-event {
@@ -679,7 +647,7 @@ body:not(.custom-fonts) .couple-head .couple-title {
 
 .comments-wrap {
   padding: 20px 20px 100px;
-  background: white;
+  // background: white;
 }
 
 .wedding-gift-desc {
@@ -700,6 +668,24 @@ body:not(.custom-fonts) .couple-head .couple-title {
     --padding-end: 10px;
     --highlight-color: unset;
   }
+
+  ion-select::part(text) {
+    white-space: pre-line;
+    @extend .single-line-ellipsis;
+  }
+}
+
+.multi-lines-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: clip !important;
+  -webkit-box-orient: vertical;
+}
+
+.single-line-ellipsis {
+  -webkit-line-clamp: 1;
+  @extend .multi-lines-ellipsis;
 }
 
 .gift-card-bank-wrap {
@@ -741,6 +727,11 @@ body:not(.custom-fonts) .couple-head .couple-title {
   display: inline-block;
   word-break: break-all;
   margin: 0;
+  display: flex;
+  align-items: center;
+  ion-icon {
+    margin-left: 8px;
+  }
 }
 
 .bd-name {
@@ -760,6 +751,9 @@ body:not(.custom-fonts) .couple-head .couple-title {
     object-fit: cover;
     object-position: center;
     background: #eee;
+  }
+  ion-icon {
+    font-size: 110px;
   }
 }
 

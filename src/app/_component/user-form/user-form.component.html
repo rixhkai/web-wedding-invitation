@@ -1,0 +1,6 @@
+<div class="inner-form">
+  <input [(ngModel)]="name" placeholder="Name">
+  <input [(ngModel)]="email" placeholder="Email">
+  <input [(ngModel)]="phone" placeholder="Phone">
+  <ion-button [disabled]="!name" (click)="submit()">{{ 'Submit' }}</ion-button>
+</div>
