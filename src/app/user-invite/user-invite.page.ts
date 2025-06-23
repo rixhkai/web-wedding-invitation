@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { Component, inject, Inject, OnInit } from '@angular/core';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonModal, IonSearchbar, ModalController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonModal, IonSearchbar, ModalController, IonIcon } from '@ionic/angular/standalone';
 import { DataService } from 'src/services/data/data.service';
 import { User } from '../_model/data';
 import { UtilityService } from 'src/services/utility/utility.service';
@@ -19,7 +19,7 @@ import global from 'src/config/global';
   styleUrls: ['./user-invite.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, NgFor, IonButton, IonModal, IonSearchbar,
-    UserFormComponent, LoginPromptComponent
+    UserFormComponent, LoginPromptComponent, NgIf, IonIcon
   ]
 })
 export class UserInvitePage implements OnInit {
@@ -31,11 +31,11 @@ export class UserInvitePage implements OnInit {
 
   modalOpen = false;
   errMsg = '';
+  private data = inject(DataService);
+  public utility = inject(UtilityService);
+  private modalCtrl = inject(ModalController);
+  private events = inject(EventsService);
   constructor(
-    private data: DataService,
-    public utility: UtilityService,
-    private modalCtrl: ModalController,
-    private events: EventsService
   ) { }
 
   ngOnInit() {
@@ -51,6 +51,7 @@ export class UserInvitePage implements OnInit {
     this.errMsg = '';
     this.data.getUsersList({q: this.q, page: this.page}).then(
       (res) => {
+        this.errMsg = '';
         this.page++;
         this.totalPage = res.pagination.total_page;
         console.log('res get user list ', res)
@@ -72,7 +73,7 @@ export class UserInvitePage implements OnInit {
 
   copyLink(id: string) {
     Clipboard.write({
-      url: global.endpointWeb + '/' + id
+      url: global.endpointWeb + '?to=' + id
     }).then(() => {
       this.utility.showToast('top', 'Berhasil di salin ke clipboard', undefined, undefined, 'toast-success');
     }).catch(() => {
@@ -95,17 +96,17 @@ export class UserInvitePage implements OnInit {
     modal.onWillDismiss().then((res) => {
       console.log('on will dismiss ', res);
       if (res.data && res.data.type == 'confirmed') {
-        this.data.deleteUsers(data.id).subscribe({
-          next: (res: any) => {
+        this.data.deleteUsers(data.id).then(
+          (res: any) => {
             console.log('res delete user ', res);
             this.events.publish('users:delete', data.id);
             this.utility.showToast('top', res.message, undefined, undefined, 'toast-success');
           },
-          error: (err: any) => {
+          (err: any) => {
             console.log('err delete user ', err);
             this.utility.showToast('top', this.utility.getErrorAPI(err, 'Something went wrong, please try again later!'), undefined, undefined, 'toast-failed');
           }
-        })
+        )
       }
     })
     modal.present();

@@ -14,6 +14,7 @@
   min-height: 100px;
   margin-bottom: 10px;
   min-width: calc(50% - 10px);
+  max-width: calc(50% - 10px);
   margin-right: 10px;
 
   .label {
@@ -26,9 +27,20 @@
   margin-top: 10px;
 }
 
+.inline-modal-container {
+  height: 100%
+}
+
+.im-header {
+  display: flex;
+  justify-content: end;
+  padding: 16px 20px;
+}
+
 @media screen and (max-width: 599px) {
   .card-item {
     width: 100%;
     margin-right: 0px;
+    max-width: 100%;
   }
 }

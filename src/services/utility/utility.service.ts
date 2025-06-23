@@ -120,12 +120,12 @@ export class UtilityService {
     reader.onerror = error => reject(error);
   });
 
-  async uploadData(formData: FormData, apiPath: string) {
+  async uploadData(formData: FormData, apiPath: string, options?: any) {
     const url = global.endpoint_url + global.api_version + apiPath;
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       if (this.network.isOnline()) {
-        this.http.post(url, formData)
+        this.http.post(url, formData, options)
         .pipe(
             finalize(() => {
               this.dismissLoader();

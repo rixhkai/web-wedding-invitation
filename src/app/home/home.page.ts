@@ -40,6 +40,7 @@ export class HomePage implements OnInit, AfterViewInit {
   imgPath: string = global.cdnPath + '/cover/pane/';
   pathStory: string = global.cdnPath + '/cover/story/';
   pathAncol: string = global.cdnPath + '/cover/ancol2/';
+  pathMeta: string = global.cdnPath + '/cover/meta/';
   pathJawa: string = global.cdnPath + '/cover/jawa/';
   pathSuit: string = global.cdnPath + '/cover/suit/';
   pathEngage: string = global.cdnPath + '/cover/engange/';
@@ -163,6 +164,11 @@ export class HomePage implements OnInit, AfterViewInit {
     route.params.subscribe((param: any) => {
       if (param && param.id) {
         this.id = param.id;
+      }
+    })
+    route.queryParams.subscribe((param: any) => {
+      if (param && param.to) {
+        this.id = param.to;
       }
     })
     window.addEventListener("dragover",(e: any) => {

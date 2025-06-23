@@ -242,23 +242,34 @@ export class DataService {
     );
   }
 
-  createUsers(id: string, data: UserRequest): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-    };
-    const baseUrl = global.endpoint_url + global.api_version+'/user/';
-    const path = id ?  baseUrl + 'update/' + id :  baseUrl + 'create-user';
-    let body = this.utility.formData(data, true);
-    return this.http.post(path, body, httpOptions).pipe(
-      map(res => res)
-    );
+  createUsers(id: string, data: UserRequest): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+      const httpOptions = {
+        headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
+      };
+      const baseUrl = global.endpoint_url + global.api_version+'/user/';
+      const path = id ?  baseUrl + 'update/' + id :  baseUrl + 'create-user';
+      let body = this.utility.formData(data, true);
+      const options = await this.getAuth();
+      this.http.post(path, body, options).pipe(
+        map(res => res)
+      ).subscribe({
+        next: (res) => {resolve(res)},
+        error: (err) => {reject(err)}
+      });
+    })
+    
   }
 
-  deleteUsers(id: string): Observable<any> {
-    const path = global.endpoint_url + global.api_version+'/user/delete/' + id;
-    return this.http.delete(path).pipe(
-      map(res => res)
-    );
+  deleteUsers(id: string): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+      const options = await this.getAuth();
+      const path = global.endpoint_url + global.api_version+'/user/delete/' + id;
+      return this.http.delete(path, options).pipe(
+        map(res => res)
+      );  
+    })
+    
   }
 
   async importUser(file: File): Promise<any> {
@@ -268,7 +279,13 @@ export class DataService {
     const blob = await response.blob();
     const fileName = new Date().getTime() + '.png';
     formData.append(`file`, blob, fileName);
-    return this.utility.uploadData(formData, '/user/import-user');
+    const user = await FirebaseAuthentication.getCurrentUser();
+    const idToken = user.user ? (await FirebaseAuthentication.getIdToken()).token : '';
+    console.log('result id token ', idToken)
+    const httpOptions  = {
+      headers: new HttpHeaders({'Authorization': 'Bearer ' + idToken})
+    };
+    return this.utility.uploadData(formData, '/user/import-user', httpOptions);
   }
 
   getCommentList(data: {page?: number, sort?: string, q?: string}): Observable<any> {

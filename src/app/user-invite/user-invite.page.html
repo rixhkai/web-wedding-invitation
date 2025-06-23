@@ -11,7 +11,7 @@
     <div *ngFor="let item of getUsers()" class="card-item">
       <div class="label">
         <div>{{ 'Name' }}</div>
-        <div>{{ item.name }}</div>
+        <div class="text-right">{{ item.name }}</div>
       </div>
       <div class="label">
         <div>{{ 'Date Created' }}</div>
@@ -31,13 +31,20 @@
         <ion-button (click)="deleteContact(item)">{{ 'Delete' }}</ion-button>
       </div>
     </div>
-  </div>
 
+    <ion-button *ngIf="page <= totalPage" (click)="initUser('paging')">{{ 'Load More' }}</ion-button>
+  </div>
+  
   <div *ngIf="errMsg" class="inner-content">{{ errMsg }}</div>
 </ion-content>
 
 <ion-modal [isOpen]="modalOpen" (willDismiss)="modalOpen = false">
   <ng-template>
-    <app-user-form [user]="user"/>
+    <div class="inline-modal-container">
+      <div class="im-header">
+        <ion-icon name="close" (click)="modalOpen = false"></ion-icon>
+      </div>
+      <app-user-form [user]="user" (onCreated)="modalOpen = false;"/>
+    </div>
   </ng-template>
 </ion-modal>

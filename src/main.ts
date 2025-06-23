@@ -4,12 +4,19 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import { environment } from './environments/environment.prod';
+import { enableProdMode } from '@angular/core';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+if (environment.production) {
+  console.log = function() {}
+  enableProdMode();
 }
 
 bootstrapApplication(AppComponent, {
@@ -18,7 +25,7 @@ bootstrapApplication(AppComponent, {
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(),
     provideTranslateService({
       loader: {
         provide: TranslateLoader,
